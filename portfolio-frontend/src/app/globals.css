@@ -1,0 +1,38 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+:root {
+  --background: #fafafa;
+  --foreground: #171717;
+  --color-gengar-light: #c299fa;
+  --color-gengar: #9a66ea;
+  --color-gengar-dark: #703ebd;
+}
+
+@theme inline {
+  --color-gengar-light: var(--color-gengar-light);
+  --color-gengar: var(--color-gengar);
+  --color-gengar-dark: var(--color-gengar-dark);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #121212;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
