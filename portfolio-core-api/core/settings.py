@@ -94,13 +94,25 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-if os.getenv('POSTGRES_DB'):
+import socket
+
+def _is_postgres_available():
+    if not os.getenv('POSTGRES_DB'):
+        return False
+    host = os.getenv('DB_HOST', 'db')
+    try:
+        socket.gethostbyname(host)
+        return True
+    except Exception:
+        return False
+
+if _is_postgres_available():
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': os.getenv('POSTGRES_DB'),
-            'USER': os.getenv('POSTGRES_USER'),
-            'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+            'USER': os.getenv('POSTGRES_USER', 'postgres'),
+            'PASSWORD': os.getenv('POSTGRES_PASSWORD', ''),
             'HOST': os.getenv('DB_HOST', 'db'),
             'PORT': os.getenv('DB_PORT', '5432'),
         }
