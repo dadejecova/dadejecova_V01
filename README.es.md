@@ -70,14 +70,31 @@ dadejecova_V01/
 
 Existen tres formas de ejecutar este proyecto: **GitHub Codespaces**, **Docker Compose** o **Instalación Local Manual**.
 
-### Opción 1: GitHub Codespaces (Directo en el Navegador)
+### Opción 1: GitHub Codespaces (1 Clic en el Navegador)
 
 1. Ve a la página principal del repositorio en GitHub.
-2. Haz clic en el botón verde **Code**, selecciona la pestaña **Codespaces** y haz clic en **Create codespace on main**.
-3. Una vez termine de iniciar el contenedor en la nube:
-   - Python y Node.js estarán listos para usar.
-   - Inicia los servicios de backend y frontend en terminales separadas.
-   - El puerto 3000 mostrará automáticamente un enlace clickable para ver la aplicación web.
+2. Haz clic en el botón **Code**, selecciona la pestaña **Codespaces** y haz clic en **Create codespace on main**.
+3. Una vez termine de cargar el entorno en la nube, ejecuta los siguientes comandos en dos pestañas de terminal:
+
+**Terminal 1: Iniciar la API Backend (Django)**
+```bash
+cd portfolio-core-api
+cp .env.example .env
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver 0.0.0.0:8000
+```
+*(Django detecta automáticamente el entorno de Codespaces e inicializa una base de datos SQLite instantánea sin configuración adicional).*
+
+**Terminal 2: Iniciar el Cliente Frontend (Next.js)**
+```bash
+cd portfolio-frontend
+cp .env.example .env.local
+npm install
+npm run dev
+```
+
+4. Codespaces detectará el puerto `3000` y mostrará la notificación **Abrir en el Navegador**. Haz clic para ver e interactuar con la aplicación en vivo.
 
 ---
 
